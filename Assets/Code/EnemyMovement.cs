@@ -11,13 +11,14 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform target;
     private int pathIndex = 0;
+    private float baseSpeed;
 
-    void Start()
+    private void Start()
     {
         target = LevelManager.main.path[pathIndex];
     }
 
-    void Update()
+    private void Update()
     {
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
         {
@@ -36,10 +37,20 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         Vector2 direction = (target.position - transform.position).normalized;
 
         rb.linearVelocity = direction * moveSpeed;
+    }
+
+    public void UpdateSpeed(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+    }
+
+    public void ResetSpeed()
+    {
+        moveSpeed = baseSpeed;
     }
 }
